@@ -127,19 +127,24 @@ const Filters = () => {
 
             {/* Filtro de habitaciones */}
             <div className="filter-section">
-                <h3 className="mb-1 font-bold text-start">Bedrooms</h3>
-                <select 
-                    className="border rounded-md p-2"
-                    onChange={handleFilterChange}
-                    name="bedrooms"
-                >
-                    <option value="">Any</option>
-                    <option value="1">1+</option>
-                    <option value="2">2+</option>
-                    <option value="3">3+</option>
-                    <option value="4">4+</option>
-                    <option value="5">5+</option>
-                </select>
+                <h3 className="mb-2 font-bold text-start">Bedrooms</h3>
+                <div className="flex flex-wrap gap-2">
+                    {[1, 2, 3, 4, 5].map((num) => (
+                        <label key={num} className="flex items-center">
+                            <input
+                                type="radio"
+                                name="bedrooms"
+                                value={num}
+                                checked={filters.bedrooms == num}
+                                onChange={handleFilterChange}
+                                className="sr-only peer"
+                            />
+                            <span className="px-3 py-1.5 rounded-full text-sm font-medium cursor-pointer transition-all peer-checked:bg-blue-500 peer-checked:text-white peer-checked:shadow-md bg-gray-200 text-gray-700 hover:bg-gray-300">
+                                {num}+
+                            </span>
+                        </label>
+                    ))}
+                </div>
             </div>
 
             {/* Filtro de área */}

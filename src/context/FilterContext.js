@@ -9,7 +9,7 @@ export const FilterProvider = ({ children }) => {
     priceRange: [0,2000000],
     propertyType: '',
     area: 0,
-    bedrooms: '',
+    bedrooms: 1,
     sortBy: 'date-desc', // 'price-asc', 'price-desc', 'date-asc', 'date-desc'
     searchQuery: '',
     features: [],
@@ -43,7 +43,7 @@ export const FilterProvider = ({ children }) => {
       priceRange: [0,2000000],
       propertyType: '',
       area: 0,
-      bedrooms: '',
+      bedrooms: 1,
       sortBy: 'date-desc',
       searchQuery: '',
       features: [],
