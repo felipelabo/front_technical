@@ -10,7 +10,9 @@ import SortSelector from "./components/SortSelector";
 import ViewSelector from "./components/ViewSelector";
 import SearchBar from "./components/SearchBar";
 import useProperties from "./hooks/useProperties";
-import { MdErrorOutline, MdOutlineSearchOff } from "react-icons/md";
+import { MdErrorOutline, MdOutlineSearchOff, MdNotificationsNone, MdKeyboardArrowDown } from "react-icons/md";
+import { RiPokerDiamondsFill } from "react-icons/ri";
+import { FaUserCircle } from "react-icons/fa";
 
 
 const VIEW_MODES = {
@@ -47,9 +49,27 @@ function App() {
   console.log('Rendered App with properties:', properties);
   return (
     <div className="App">
-      <header className="header">
-        <h1>Property Explorer</h1>
+      <header className="header flex items-center px-6 py-4 bg-white">
+        <h1 className="flex-1 text-2xl flex items-center justify-start gap-1">
+          <RiPokerDiamondsFill className="text-blue-500 text-3xl"/>
+          Property Explorer
+        </h1>
         <SearchBar />
+        <div className="flex-1 flex items-center justify-end gap-4">
+          <button 
+            className="p-2 bg-white border border-gray-200 rounded-full transition-colors"
+            aria-label="Notifications"
+          >
+            <MdNotificationsNone className="text-2xl text-blue-500" />
+          </button>
+          <button 
+            className="flex items-center gap-1 p-2 bg-white border border-gray-200 rounded-full transition-colors"
+            aria-label="User profile"
+          >
+            <FaUserCircle className="text-2xl text-gray-600" />
+            <MdKeyboardArrowDown/>
+          </button>
+        </div>
       </header>
 
       <main className="main-content">
@@ -61,9 +81,9 @@ function App() {
         <section className="properties-view">
 
           {/* Barra de cambio de vista y ordenamiento */}
-          <div className="view-toggle flex gap-4 flex-col md:flex-row justify-between items-center mb-4 min-h-12">
-            <ViewSelector handleViewChange={handleViewChange} viewMode={viewMode} variable={VIEW_MODES} />            
-            {viewMode === VIEW_MODES.GRID && <SortSelector />}
+          <div className="view-toggle flex gap-4 flex-col md:flex-row justify-end items-center mb-4 min-h-12">
+            {/*<ViewSelector handleViewChange={handleViewChange} viewMode={viewMode} variable={VIEW_MODES} />*/}          
+            <SortSelector />
           </div>
 
           {/* Contenido de propiedades */}
@@ -71,6 +91,7 @@ function App() {
             <Maps properties={properties} locations={locations} />
           ) : (
             <div className="content-area">
+              
               {isLoading ? (
                 Array.from({ length: 6 }).map((_, index) => (
                   <SkeletonCard key={index} />
@@ -102,6 +123,10 @@ function App() {
               )}
             </div>
           )}
+        </section>
+
+        <section className="properties-view map-content">
+          <Maps properties={properties} locations={locations} />
         </section>
       </main>
     </div>

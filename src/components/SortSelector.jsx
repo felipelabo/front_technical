@@ -1,12 +1,6 @@
 import React, { memo } from 'react';
 import { useFilters } from '../context/FilterContext';
-
-const SORT_OPTIONS = [
-  { value: 'date-desc', label: 'Newest First' },
-  { value: 'date-asc', label: 'Oldest First' },
-  { value: 'price-desc', label: 'Price: High to Low' },
-  { value: 'price-asc', label: 'Price: Low to High' },
-];
+import { SORT_OPTIONS } from '../utils/variables';
 
 const SortSelector = memo(function SortSelector() {
   const { filters, updateFilter } = useFilters();
@@ -25,7 +19,7 @@ const SortSelector = memo(function SortSelector() {
         id="sort"
         value={filters.sortBy}
         onChange={handleSortChange}
-        className="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
         {SORT_OPTIONS.map((option) => (
           <option key={option.value} value={option.value}>

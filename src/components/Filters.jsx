@@ -3,17 +3,7 @@ import { numberWithCommas } from "../utils/numberWithCommas";
 import { propertyApi } from "../api/propertyApi";
 import { useFilters } from "../context/FilterContext";
 import { MdClose } from "react-icons/md";
-
-const AVAILABLE_FEATURES = [
-  'Parking',
-  'Metro',
-  'Balcony',
-  'Garage',
-  'Garden',
-  'Rooftop',
-  'Concierge',
-  'Gym',
-];
+import { AVAILABLE_FEATURES } from "../utils/variables";
 
 const Filters = () => {
 
@@ -88,6 +78,10 @@ const Filters = () => {
 
     return (
         <aside className="filters-panel flex flex-col gap-4">
+
+            <div className="view-toggle flex gap-4 flex-col md:flex-row justify-start items-center mb-4 min-h-12">
+                <h3 className="text-sm font-semibold">Filters</h3>
+            </div>
           
             {/* Filtro de precio */}
             <div className="filter-section">
@@ -114,7 +108,7 @@ const Filters = () => {
             <div className="filter-section">
                 <h3 className="mb-1 font-bold text-start">Property Type</h3>
                 <select 
-                    className="border rounded-md p-2"
+                    className="border rounded-xl p-2"
                     onChange={handleFilterChange}
                     name="propertyType"
                 >
@@ -139,7 +133,7 @@ const Filters = () => {
                                 onChange={handleFilterChange}
                                 className="sr-only peer"
                             />
-                            <span className="px-3 py-1.5 rounded-full text-sm font-medium cursor-pointer transition-all peer-checked:bg-blue-500 peer-checked:text-white peer-checked:shadow-md bg-gray-200 text-gray-700 hover:bg-gray-300">
+                            <span className="px-3 py-1.5 rounded-full text-sm font-medium cursor-pointer transition-all peer-checked:bg-blue-500 peer-checked:text-white peer-checked:shadow-md bg-white text-blue-700 border border-blue-500 hover:bg-blue-500 hover:text-white">
                                 {num}+
                             </span>
                         </label>
@@ -153,7 +147,7 @@ const Filters = () => {
                 <input 
                     type="number"
                     placeholder="Area"
-                    className="border rounded-md p-2 w-full"
+                    className="border rounded-xl p-2 w-full"
                     onChange={handleFilterChange}
                     name="area"
                 />
@@ -163,7 +157,7 @@ const Filters = () => {
             <div className="filter-section">
                 <h3 className="mb-1 font-bold text-start">Location</h3>
                 <select 
-                    className="border rounded-md p-2"
+                    className="border rounded-xl p-2"
                     onChange={handleFilterChange}
                     name="location"
                 >
@@ -208,7 +202,7 @@ const Filters = () => {
                     className={`px-2 py-1 rounded-full text-xs font-medium transition-all ${
                         selectedFeatures.includes(feature)
                         ? 'bg-blue-500 text-white shadow-md'
-                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                        : 'bg-white text-blue-500 hover:bg-blue-500 hover:text-white border border-blue-500'
                     }`}
                     aria-pressed={selectedFeatures.includes(feature)}
                     >

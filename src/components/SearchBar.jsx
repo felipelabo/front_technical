@@ -1,10 +1,12 @@
 import React, { useState, useEffect, memo, useCallback } from 'react';
 import { useFilters } from '../context/FilterContext';
-import { MdSearch, MdClose } from 'react-icons/md';
+import { MdSearch } from 'react-icons/md';
 
 const SearchBar = memo(function SearchBar() {
   const { updateFilter, filters } = useFilters();
   const [searchInput, setSearchInput] = useState(filters.searchQuery || '');
+  const [propertyType, setPropertyType] = useState(filters.propertyType || '');
+  const [area, setArea] = useState(filters.area || '');
 
   // Debounce para la búsqueda de texto - solo actualizar si cambió
   useEffect(() => {
@@ -15,7 +17,7 @@ const SearchBar = memo(function SearchBar() {
     }, 300);
 
     return () => clearTimeout(timer);
-  }, [searchInput, updateFilter]);
+  }, [searchInput, updateFilter, filters.searchQuery]);
 
   // Manejo de cambios en el input de búsqueda
   const handleSearchChange = useCallback((e) => {
@@ -28,26 +30,22 @@ const SearchBar = memo(function SearchBar() {
   }, []);
 
   return (
-    <div className="relative">
-      <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-blue-500">
-        <MdSearch className="ml-3 text-gray-400 text-xl" />
-        <input
-          type="text"
-          value={searchInput}
-          onChange={handleSearchChange}
-          placeholder="Search by location (e.g., Gran Vía, Serrano)..."
-          className="w-full px-3 py-2.5 outline-none text-gray-700"
-        />
-        {searchInput && (
-          <button
-            onClick={handleClearSearch}
-            className="pr-3 text-gray-400 hover:text-gray-600 transition-colors"
-            aria-label="Clear search"
-          >
-            <MdClose className="text-xl" />
-          </button>
-        )}
-      </div>
+    <div className="w-1/3 flex items-center bg-white rounded-full shadow-sm border border-gray-200 overflow-hidden">
+      
+      <input
+        type="text"
+        value={searchInput}
+        onChange={handleSearchChange}
+        placeholder="Calle de Huesca 27, Tetuan, 28020 Madrid"
+        className="flex-1 px-6 py-3 outline-none text-gray-700 placeholder-gray-400 min-w-[300px]"
+      />
+      
+      <button
+        className="bg-blue-500 hover:bg-blue-600 text-white rounded-full p-3 m-1 transition-colors"
+        aria-label="Search"
+      >
+        <MdSearch className="text-xl" />
+      </button>
     </div>
   );
 });
