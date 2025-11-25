@@ -7,11 +7,23 @@ import { AVAILABLE_FEATURES } from "../utils/variables";
 
 const Filters = () => {
 
-    const { updateFilter, updatePriceRange, filters } = useFilters();
+    const { updateFilter, updatePriceRange, resetFilters, filters } = useFilters();
     const [rangePrice, setRangePrice] = useState(filters.priceRange[1]);
     const [locations, setLocations] = useState([]);
     const [propertyTypes, setPropertyTypes] = useState([]);
-    const [selectedFeatures, setSelectedFeatures] = useState([]);
+    const [selectedFeatures, setSelectedFeatures] = useState(filters.features || []);
+    const [area, setArea] = useState(filters.area || '');
+    const [location, setLocation] = useState(filters.location || '');
+    const [propertyType, setPropertyType] = useState(filters.propertyType || '');
+
+    // Sincronizar todos los estados locales en un solo useEffect
+    useEffect(() => {
+        setRangePrice(filters.priceRange[1]);
+        setSelectedFeatures(filters.features || []);
+        setArea(filters.area || '');
+        setLocation(filters.location || '');
+        setPropertyType(filters.propertyType || '');
+    }, [filters]);
 
     const handleChangePrice = (e) => {
         setRangePrice(e.target.value);
@@ -62,6 +74,27 @@ const Filters = () => {
         updateFilter(name, value);
     }
 
+    // Manejo específico para location
+    const handleLocationChange = (e) => {
+        const value = e.target.value;
+        setLocation(value);
+        updateFilter('location', value);
+    }
+
+    // Manejo específico para property type
+    const handlePropertyTypeChange = (e) => {
+        const value = e.target.value;
+        setPropertyType(value);
+        updateFilter('propertyType', value);
+    }
+
+    // Manejo específico para area
+    const handleAreaChange = (e) => {
+        const value = e.target.value;
+        setArea(value);
+        updateFilter('area', value);
+    }
+
     //Selección y deselección de features
     const toggleFeature = useCallback((feature) => {
         setSelectedFeatures((prev) =>
@@ -79,8 +112,14 @@ const Filters = () => {
     return (
         <aside className="filters-panel flex flex-col gap-4">
 
-            <div className="view-toggle flex gap-4 flex-col md:flex-row justify-start items-center mb-4 min-h-12">
+            <div className="view-toggle flex gap-4 flex-col md:flex-row justify-between items-center mb-4 min-h-12">
                 <h3 className="text-sm font-semibold">Filters</h3>
+                <button 
+                    onClick={resetFilters}
+                    className="text-blue-500 text-sm font-medium hover:text-blue-700 transition-colors"
+                >
+                    Reset
+                </button>
             </div>
           
             {/* Filtro de precio */}
@@ -109,7 +148,8 @@ const Filters = () => {
                 <h3 className="mb-1 font-bold text-start">Property Type</h3>
                 <select 
                     className="border rounded-xl p-2"
-                    onChange={handleFilterChange}
+                    onChange={handlePropertyTypeChange}
+                    value={propertyType}
                     name="propertyType"
                 >
                 <option value="">All Types</option>
@@ -148,7 +188,8 @@ const Filters = () => {
                     type="number"
                     placeholder="Area"
                     className="border rounded-xl p-2 w-full"
-                    onChange={handleFilterChange}
+                    onChange={handleAreaChange}
+                    value={area}
                     name="area"
                 />
             </div>
@@ -158,7 +199,8 @@ const Filters = () => {
                 <h3 className="mb-1 font-bold text-start">Location</h3>
                 <select 
                     className="border rounded-xl p-2"
-                    onChange={handleFilterChange}
+                    onChange={handleLocationChange}
+                    value={location}
                     name="location"
                 >
                 <option value="">All Locations</option>

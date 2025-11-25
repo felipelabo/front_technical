@@ -49,13 +49,13 @@ function App() {
   console.log('Rendered App with properties:', properties);
   return (
     <div className="App">
-      <header className="header flex items-center px-6 py-4 bg-white">
-        <h1 className="flex-1 text-2xl flex items-center justify-start gap-1">
+      <header className="header flex gap-2 flex-col sm:flex-row items-center px-6 py-4 bg-white">
+        <h1 className="flex-1 text-2xl flex items-center justify-start gap-1 ">
           <RiPokerDiamondsFill className="text-blue-500 text-3xl"/>
           Property Explorer
         </h1>
-        <SearchBar />
-        <div className="flex-1 flex items-center justify-end gap-4">
+        <SearchBar className={''} />
+        <div className="flex-1 items-center hidden sm:flex justify-end gap-4 order-1 sm:order-3">
           <button 
             className="p-2 bg-white border border-gray-200 rounded-full transition-colors"
             aria-label="Notifications"

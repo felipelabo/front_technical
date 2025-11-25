@@ -2,7 +2,7 @@ import React, { useState, useEffect, memo, useCallback } from 'react';
 import { useFilters } from '../context/FilterContext';
 import { MdSearch } from 'react-icons/md';
 
-const SearchBar = memo(function SearchBar() {
+const SearchBar = memo(function SearchBar({className}) {
   const { updateFilter, filters } = useFilters();
   const [searchInput, setSearchInput] = useState(filters.searchQuery || '');
   const [propertyType, setPropertyType] = useState(filters.propertyType || '');
@@ -30,14 +30,14 @@ const SearchBar = memo(function SearchBar() {
   }, []);
 
   return (
-    <div className="w-1/3 flex items-center bg-white rounded-full shadow-sm border border-gray-200 overflow-hidden">
+    <div className={`w-10/12 sm:w-1/3 flex items-center bg-white rounded-full shadow-sm border border-gray-200 overflow-hidden ${className}`}>
       
       <input
         type="text"
         value={searchInput}
         onChange={handleSearchChange}
         placeholder="Calle de Huesca 27, Tetuan, 28020 Madrid"
-        className="flex-1 px-6 py-3 outline-none text-gray-700 placeholder-gray-400 min-w-[300px]"
+        className="flex-1 px-6 py-3 outline-none text-gray-700 placeholder-gray-400 min-w-[150px]"
       />
       
       <button

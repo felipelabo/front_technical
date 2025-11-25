@@ -28,9 +28,8 @@ const Maps = memo(function Maps({properties, locations}){
 
     return (
         <MapContainer 
-            className='rounded-xl'
+            className='rounded-xl min-h-[500px] md:min-h-full '
             center={[40.4168, -3.7038]} 
-            style={{height:"100%"}}  
             zoom={13} 
             scrollWheelZoom={true}
         >
